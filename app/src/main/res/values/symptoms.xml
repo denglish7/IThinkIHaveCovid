@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="symptoms_array">
+        <item>\u2022 Fever or chills</item>
+        <item>\u2022 Cough</item>
+        <item>\u2022 Shortness of breath of difficulty breathing</item>
+        <item>\u2022 Fatigue</item>
+        <item>\u2022 Muscle or body aches</item>
+        <item>\u2022 Headache</item>
+        <item>\u2022 New loss of taste or smell</item>
+        <item>\u2022 Sore throat</item>
+        <item>\u2022 Congestion or runny nose</item>
+        <item>\u2022 Nausea or vomiting</item>
+        <item>\u2022 Diarrhea</item>
+    </string-array>
+</resources>
