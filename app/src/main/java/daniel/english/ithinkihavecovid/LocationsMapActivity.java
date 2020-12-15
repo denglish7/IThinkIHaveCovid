@@ -33,6 +33,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -50,6 +51,14 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -71,7 +80,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 
-public class LocationsMapActivity extends AppCompatActivity {
+public class LocationsMapActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = LocationsMapActivity.class.getSimpleName();
 
     final String discoverKey = BuildConfig.DISCOVER_KEY;
@@ -171,9 +180,7 @@ public class LocationsMapActivity extends AppCompatActivity {
         // Locate the UI widgets.
         mStartUpdatesButton = (Button) findViewById(R.id.start_updates_button);
         mStopUpdatesButton = (Button) findViewById(R.id.stop_updates_button);
-        mLatitudeTextView = (TextView) findViewById(R.id.latitude_text);
-        mLongitudeTextView = (TextView) findViewById(R.id.longitude_text);
-        mLastUpdateTimeTextView = (TextView) findViewById(R.id.last_update_time_text);
+
 
         // Set labels.
         mLatitudeLabel = getResources().getString(R.string.latitude_label);
@@ -188,6 +195,12 @@ public class LocationsMapActivity extends AppCompatActivity {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mSettingsClient = LocationServices.getSettingsClient(this);
+
+        // Get the SupportMapFragment and request notification
+        // when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync( this);
 
         // Kick off the process of building the LocationCallback, LocationRequest, and
         // LocationSettingsRequest objects.
@@ -406,7 +419,7 @@ public class LocationsMapActivity extends AppCompatActivity {
 
             Double lat = mCurrentLocation.getLatitude();
             Double lng = mCurrentLocation.getLongitude();
-//            search(lat, lng);
+            search(lat, lng);
 
         }
     }
@@ -578,7 +591,6 @@ public class LocationsMapActivity extends AppCompatActivity {
     }
 
     public void search(Double lat, Double lng) {
-
         final String url = baseUrl + lat + "," + lng + "&limit=5";
         locations = new ArrayList<>();
         // Instantiate the RequestQueue.
@@ -654,7 +666,6 @@ public class LocationsMapActivity extends AppCompatActivity {
                                         phoneObj.getString("value"),
                                         websiteObj.getString("value")
                                 );
-
                                 locations.add(location);
                             }
 
@@ -676,4 +687,17 @@ public class LocationsMapActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        LatLng fh = new LatLng(48.465014, -122.962771);
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(fh)
+                .title("Your location"));
+
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(fh, 9));
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+    }
 }

@@ -5,6 +5,10 @@ def apikeyPropertiesFile = rootProject.file("apikey.properties")
 def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
+def googleMapApiKey = apikeyProperties.getProperty("GOOGLE_MAPS_KEY")
+def stringKey = googleMapApiKey.substring(1, googleMapApiKey.length() - 1)
+
+
 android {
     compileSdkVersion 29
 
@@ -20,6 +24,9 @@ android {
         // should correspond to key/value pairs inside the file
         buildConfigField("String", "GOOGLE_MAPS_KEY", apikeyProperties['GOOGLE_MAPS_KEY'])
         buildConfigField("String", "DISCOVER_KEY", apikeyProperties['DISCOVER_KEY'])
+
+        manifestPlaceholders.key = stringKey;
+
     }
 
     buildTypes {
@@ -47,6 +54,7 @@ dependencies {
 
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

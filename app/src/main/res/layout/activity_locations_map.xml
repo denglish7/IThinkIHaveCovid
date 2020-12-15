@@ -61,36 +61,22 @@
                 android:onClick="stopUpdatesButtonHandler"
                 android:text="@string/stop_updates" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/latitude_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/small_margin"
-            android:layout_marginStart="@dimen/small_margin"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:id="@+id/longitude_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/small_margin"
-            android:layout_marginStart="@dimen/small_margin"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:id="@+id/last_update_time_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/small_margin"
-            android:layout_marginStart="@dimen/small_margin"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:id="@+id/location_inadequate_warning"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/location_settings_inadequate_warning"
-            android:visibility="invisible" />
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.example.mapwithmarker.MapsMarkerActivity" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

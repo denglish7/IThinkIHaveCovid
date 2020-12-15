@@ -50,13 +50,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     public void goToLocationsMapActivity(View view) {
         Intent intent = new Intent(this, LocationsMapActivity.class);
         startActivity(intent);
     }
-
-
-
-
 }
