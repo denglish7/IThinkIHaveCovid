@@ -21,7 +21,7 @@ public class LocationsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_locations_list);
 
         Intent intent = getIntent();
-        locations = intent.getParcelableArrayListExtra("key");
+//        locations = intent.getParcelableArrayListExtra("key");
 
         Log.d("heres locations", String.valueOf(locations));
         getList();

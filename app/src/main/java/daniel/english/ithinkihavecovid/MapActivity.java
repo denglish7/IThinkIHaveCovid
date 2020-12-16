@@ -224,7 +224,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
     public void goToLocationsListActivity() {
         Intent intent = new Intent(this, LocationsListActivity.class);
 
-        intent.putParcelableArrayListExtra("key", (ArrayList<? extends Parcelable>) locations);
+//        intent.putParcelableArrayListExtra("key", (ArrayList<? extends Parcelable>) locations);
 
         startActivity(intent);
     }

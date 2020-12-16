@@ -1,6 +1,11 @@
 package daniel.english.ithinkihavecovid;
 
-public class Address {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Address implements Serializable {
     private String label;
     private String countryCode;
     private String countryName;
@@ -11,6 +16,20 @@ public class Address {
     private String street;
     private String postalCode;
     private String houseNumber;
+
+    protected Address(Parcel in) {
+        label = in.readString();
+        countryCode = in.readString();
+        countryName = in.readString();
+        stateCode = in.readString();
+        state = in.readString();
+        county = in.readString();
+        city = in.readString();
+        street = in.readString();
+        postalCode = in.readString();
+        houseNumber = in.readString();
+    }
+    
 
     public String getLabel() {
         return label;
@@ -112,5 +131,21 @@ public class Address {
         this.street = street;
         this.postalCode = postalCode;
         this.houseNumber = houseNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "label='" + label + '\'' +
+                ", countryCode='" + countryCode + '\'' +
+                ", countryName='" + countryName + '\'' +
+                ", stateCode='" + stateCode + '\'' +
+                ", state='" + state + '\'' +
+                ", county='" + county + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", houseNumber='" + houseNumber + '\'' +
+                '}';
     }
 }

@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class TestingLocation implements Parcelable {
+public class TestingLocation implements Serializable {
 
     private String title;
     private String id;
@@ -50,17 +50,17 @@ public class TestingLocation implements Parcelable {
         website = in.readString();
     }
 
-    public static final Creator<TestingLocation> CREATOR = new Creator<TestingLocation>() {
-        @Override
-        public TestingLocation createFromParcel(Parcel in) {
-            return new TestingLocation(in);
-        }
-
-        @Override
-        public TestingLocation[] newArray(int size) {
-            return new TestingLocation[size];
-        }
-    };
+//    public static final Creator<TestingLocation> CREATOR = new Creator<TestingLocation>() {
+//        @Override
+//        public TestingLocation createFromParcel(Parcel in) {
+//            return new TestingLocation(in);
+//        }
+//
+//        @Override
+//        public TestingLocation[] newArray(int size) {
+//            return new TestingLocation[size];
+//        }
+//    };
 
     public String getTitle() {
         return title;
@@ -149,23 +149,23 @@ public class TestingLocation implements Parcelable {
                 '}';
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
-        parcel.writeString(id);
-        parcel.writeString(resultType);
-        if (distance == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(distance);
-        }
-        parcel.writeString(phone);
-        parcel.writeString(website);
-    }
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel parcel, int i) {
+//        parcel.writeString(title);
+//        parcel.writeString(id);
+//        parcel.writeString(resultType);
+//        if (distance == null) {
+//            parcel.writeByte((byte) 0);
+//        } else {
+//            parcel.writeByte((byte) 1);
+//            parcel.writeInt(distance);
+//        }
+//        parcel.writeString(phone);
+//        parcel.writeString(website);
+//    }
 }
