@@ -50,49 +50,49 @@
             android:text="Find testing locations"
             android:onClick="startUpdatesButtonHandler"/>
 
-        <LinearLayout
-            android:id="@+id/view_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:layout_marginTop="10dp">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/view_buttons"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:layout_marginTop="10dp">-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/search_caption"
-                android:textColor="@color/textColor"
-                android:layout_marginTop="50dp"/>
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:text="@string/search_caption"-->
+<!--                android:textColor="@color/textColor"-->
+<!--                android:layout_marginTop="50dp"/>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="10dp">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:layout_marginTop="10dp">-->
 
-                <Button
-                    android:id="@+id/list_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="30dp"
-                    android:text="View list"
-                    android:onClick="goToLocationsMapActivity" />
+<!--                <Button-->
+<!--                    android:id="@+id/list_button"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="25dp"-->
+<!--                    android:layout_marginRight="30dp"-->
+<!--                    android:text="View list"-->
+<!--                    android:onClick="goToLocationsMapActivity" />-->
 
-                <Button
-                    android:id="@+id/search_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="30dp"
-                    android:text="View map"
-                    android:onClick="goToLocationsMapActivity" />
+<!--                <Button-->
+<!--                    android:id="@+id/search_button"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="25dp"-->
+<!--                    android:layout_marginRight="30dp"-->
+<!--                    android:text="View map"-->
+<!--                    android:onClick="goToLocationsMapActivity" />-->
 
-            </LinearLayout>
-        </LinearLayout>
+<!--            </LinearLayout>-->
+<!--        </LinearLayout>-->
 
         <TextView
             android:layout_width="match_parent"

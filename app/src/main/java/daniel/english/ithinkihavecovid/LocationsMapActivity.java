@@ -65,7 +65,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 
-public class LocationsMapActivity extends AppCompatActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
+
+
+public class LocationsMapActivity extends AppCompatActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
     private static final String TAG = LocationsMapActivity.class.getSimpleName();
 
     private ArrayList<TestingLocation> locations;
@@ -91,9 +93,13 @@ public class LocationsMapActivity extends AppCompatActivity implements GoogleMap
 
     public void goToLocationsListActivity() {
         Intent intent = new Intent(this, LocationsListActivity.class);
+        intent.putExtra("list", locations);
+        startActivity(intent);
+    }
 
-//        intent.putParcelableArrayListExtra("key", (ArrayList<? extends Parcelable>) locations);
-
+    public void goToLocationInfoActivity(TestingLocation location) {
+        Intent intent = new Intent(this, LocationsListActivity.class);
+        intent.putExtra("location", location);
         startActivity(intent);
     }
 
@@ -124,19 +130,31 @@ public class LocationsMapActivity extends AppCompatActivity implements GoogleMap
             googleMap.addMarker(new MarkerOptions()
                     .position(position)
                     .title(location.getTitle())).setTag(location);
+
+            googleMap.setOnInfoWindowClickListener(this);
         }
     }
 
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
-        TestingLocation location = (TestingLocation) marker.getTag();
 
-        Log.e("clicking here", String.valueOf(location));
+
+
+
+
 
         // Return false to indicate that we have not consumed the event and that we wish
         // for the default behavior to occur (which is for the camera to move such that the
         // marker is centered and for the marker's info window to open, if it has one).
         return false;
+    }
+
+
+    @Override
+    public void onInfoWindowClick(final Marker marker) {
+        TestingLocation location = (TestingLocation) marker.getTag();
+
+        Log.e("clicking here", String.valueOf(location));
     }
 }

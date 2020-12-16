@@ -187,8 +187,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToLocationsMapActivity() {
         Intent intent = new Intent(this, LocationsMapActivity.class);
-
-//        intent.putParcelableArrayListExtra("key", (ArrayList<? extends Parcelable>) locations);
         intent.putExtra("list", locations);
         startActivity(intent);
     }
