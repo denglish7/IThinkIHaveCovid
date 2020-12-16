@@ -39,6 +39,6 @@
     <string name="settings">Settings</string>
 
     <string name="cdc_link">https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html</string>
-
+    <string name="getting_locations">Getting locations near you...</string>
 
 </resources>

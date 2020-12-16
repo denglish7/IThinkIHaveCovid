@@ -24,7 +24,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -130,9 +132,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private Location mCurrentLocation;
 
-    // UI Widgets.
-    private Button mStartUpdatesButton;
-    private Button mStopUpdatesButton;
+    private LinearLayout progressBarLayout;
+    private LinearLayout mainLayout;
 
     /**
      * Tracks the status of the location updates request. Value changes when the user presses the
@@ -149,6 +150,12 @@ public class MainActivity extends AppCompatActivity {
         TextView firstLink;
         firstLink = (TextView) findViewById(R.id.link);
         firstLink.setText(R.string.cdc_link);
+
+        mainLayout = (LinearLayout) findViewById(R.id.mainLayout);
+        mainLayout.setVisibility(View.VISIBLE);
+
+        progressBarLayout = (LinearLayout) findViewById(R.id.progressLayout);
+        progressBarLayout.setVisibility(View.GONE);
 
         mRequestingLocationUpdates = false;
 
@@ -175,19 +182,16 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-    public void goToSymptomsActivity(View view) {
-        Intent intent = new Intent(this, SymptomsActivity.class);
-        startActivity(intent);
-    }
-
-    public void goToMapActivity(View view) {
-        Intent intent = new Intent(this, MapActivity.class);
-        startActivity(intent);
-    }
-
     public void goToLocationsMapActivity() {
         Intent intent = new Intent(this, LocationsMapActivity.class);
+        Bundle bundle = new Bundle();
+
+        bundle.putDouble("lat", mCurrentLocation.getLatitude());
+        bundle.putDouble("lng", mCurrentLocation.getLongitude());
+
         intent.putExtra("list", locations);
+        intent.putExtras(bundle);
+
         startActivity(intent);
     }
 
@@ -305,19 +309,12 @@ public class MainActivity extends AppCompatActivity {
     public void startUpdatesButtonHandler(View view) {
         if (!mRequestingLocationUpdates) {
             mRequestingLocationUpdates = true;
-//            setButtonsEnabledState();
-            startLocationUpdates();
-        }
-    }
 
-    /**
-     * Handles the Stop Updates button, and requests removal of location updates.
-     */
-    public void stopUpdatesButtonHandler(View view) {
-        // It is a good practice to remove location requests when the activity is in a paused or
-        // stopped state. Doing so helps battery performance and is especially
-        // recommended in applications that request frequent location updates.
-        stopLocationUpdates();
+            mainLayout.setVisibility(View.GONE);
+            progressBarLayout.setVisibility(View.VISIBLE);
+            startLocationUpdates();
+
+        }
     }
 
     /**
@@ -438,15 +435,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        // Within {@code onPause()}, we remove location updates. Here, we resume receiving
-        // location updates if the user has requested them.
-        if (mRequestingLocationUpdates && checkPermissions()) {
-            startLocationUpdates();
-        } else if (!checkPermissions()) {
-            requestPermissions();
-        }
 
-        updateUI();
+        progressBarLayout.setVisibility(View.GONE);
+        mainLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -40,37 +40,23 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import androidx.core.app.ActivityCompat;
-
-
 
 
 public class LocationsMapActivity extends AppCompatActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
-    private static final String TAG = LocationsMapActivity.class.getSimpleName();
 
     private ArrayList<TestingLocation> locations;
+
+    private Double lat;
+    private Double lng;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,8 +66,9 @@ public class LocationsMapActivity extends AppCompatActivity implements GoogleMap
         Intent intent = getIntent();
         locations = (ArrayList<TestingLocation>)intent.getSerializableExtra("list");
 
-        Log.e("location map activity", String.valueOf(locations));
-
+        Bundle bundle = intent.getExtras();
+        lat = bundle.getDouble("lat");
+        lng = bundle.getDouble("lng");
 
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
@@ -98,7 +85,7 @@ public class LocationsMapActivity extends AppCompatActivity implements GoogleMap
     }
 
     public void goToLocationInfoActivity(TestingLocation location) {
-        Intent intent = new Intent(this, LocationsListActivity.class);
+        Intent intent = new Intent(this, LocationInfoActivity.class);
         intent.putExtra("location", location);
         startActivity(intent);
     }
@@ -106,15 +93,18 @@ public class LocationsMapActivity extends AppCompatActivity implements GoogleMap
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        LatLng fh = new LatLng(48.465014, -122.962771);
+//        LatLng fh = new LatLng(48.465014, -122.962771);
+        LatLng current = new LatLng(lat, lng);
 
         googleMap.addMarker(new MarkerOptions()
-                .position(fh)
+                .position(current)
+                .icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                 .title("Your location"));
 
         getMarkers(googleMap);
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(fh, 9));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current, 9));
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.setOnMarkerClickListener(this);
     }
@@ -129,7 +119,10 @@ public class LocationsMapActivity extends AppCompatActivity implements GoogleMap
 
             googleMap.addMarker(new MarkerOptions()
                     .position(position)
-                    .title(location.getTitle())).setTag(location);
+                    .icon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                    .title(location.getTitle()))
+                    .setTag(location);
 
             googleMap.setOnInfoWindowClickListener(this);
         }
@@ -138,11 +131,6 @@ public class LocationsMapActivity extends AppCompatActivity implements GoogleMap
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
-
-
-
-
-
 
         // Return false to indicate that we have not consumed the event and that we wish
         // for the default behavior to occur (which is for the camera to move such that the
@@ -155,6 +143,6 @@ public class LocationsMapActivity extends AppCompatActivity implements GoogleMap
     public void onInfoWindowClick(final Marker marker) {
         TestingLocation location = (TestingLocation) marker.getTag();
 
-        Log.e("clicking here", String.valueOf(location));
+        goToLocationInfoActivity(location);
     }
 }
